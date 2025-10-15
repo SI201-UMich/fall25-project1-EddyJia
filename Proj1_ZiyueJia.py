@@ -22,6 +22,48 @@ cl1 = []# first clean the dataset
 for i in rawdata:
     if i["body_mass_g"] != "NA" and i["species"] != "NA" and i["sex"] != "NA":
         cl1.append(i)
+def calcavg(avgl):
+    sum = 0
+    op = 0
+    for i in avgl:
+        sum += float(i)
+    op = round(sum / len(avgl),2)
+    return op
+    
+def Calculation1(cldt):
+    opl = []
+    spl = []
+
+    for i in cldt:
+        if i["species"] not in spl:
+            spl.append(i["species"])
+    
+    for i in spl:
+        maled = {}
+        femaled = {}
+        malel = []
+        femalel = []
+        maled["species"] = i
+        maled["sex"] = "Male"
+        femaled["species"] = i
+        femaled["sex"] = "Female"
+        for x in cldt:
+            if x["species"] == i:
+                if x["sex"] == "male":
+                    malel.append(x["body_mass_g"])
+                if x["sex"] == "female":
+                    femalel.append(x["body_mass_g"])
+        mavg = calcavg(malel)
+        fmavg = calcavg(femalel)
+        maled["average body mass (g)"] = mavg
+        femaled["average body mass (g)"] = fmavg
+        opl.append(maled)
+        opl.append(femaled)
+    return opl
+
+#print(Calculation1(cl1))
+
+    
 
 #Calculation 2: Calculate the correlation between flipper length and bill length, grouped by species.
 cl2 = []# clean the dataset for calculation 2
