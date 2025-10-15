@@ -70,3 +70,42 @@ cl2 = []# clean the dataset for calculation 2
 for i in rawdata:
     if i["species"] != "NA" and i["flipper_length_mm"] != "NA" and i["bill_length_mm"] != "NA":
         cl2.append(i)
+
+def calc_corr(fll, bll):  # function to calculate correlation between flipper length and bill length for each species
+    n = len(fll)
+    if n == 0:
+        return 0
+    mean_fl = calcavg(fll)
+    mean_bl = calcavg(bll)
+    num = 0
+    denx = 0
+    deny = 0
+    for i in range(n):
+        x = float(fll[i]) - mean_fl
+        y = float(bll[i]) - mean_bl
+        num += x * y
+        denx += x ** 2
+        deny += y ** 2
+    if denx == 0 or deny == 0:
+        return 0
+    r = num / ((denx ** 0.5) * (deny ** 0.5))
+    return round(r, 4)
+
+
+def Calculation2(cldt2):  #perform the calculation using calc_corr
+    spl = []
+    for i in cldt2:
+        if i["species"] not in spl:
+            spl.append(i["species"])
+    opl = []
+    for sp in spl:
+        fll = []
+        bll = []
+        for i in cldt2:
+            if i["species"] == sp:
+                fll.append(i["flipper_length_mm"])
+                bll.append(i["bill_length_mm"])
+        corr = calc_corr(fll, bll)
+        opl.append({"species": sp, "correlation": corr})
+    return opl
+#print(Calculation2(cl2))
