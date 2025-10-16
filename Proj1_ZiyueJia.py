@@ -106,6 +106,26 @@ def Calculation2(cldt2):  #perform the calculation using calc_corr
                 fll.append(i["flipper_length_mm"])
                 bll.append(i["bill_length_mm"])
         corr = calc_corr(fll, bll)
-        opl.append({"species": sp, "correlation": corr})
+        opl.append({"species": sp, "correlation between flipper length and bill length": corr})
     return opl
 #print(Calculation2(cl2))
+def write_outputs(res1, res2):
+    import csv
+    # Calculation 1 results
+    with open("Calculation1_results.csv", "w", newline="") as f1:
+        w1 = csv.DictWriter(f1, fieldnames=["species", "sex", "average body mass (g)"])
+        w1.writeheader()
+        w1.writerows(res1)
+
+    # Calculation 2 results in a another csv
+    with open("Calculation2_results.csv", "w", newline="") as f2:
+        w2 = csv.DictWriter(f2, fieldnames=["species", "correlation between flipper length and bill length"])
+        w2.writeheader()
+        w2.writerows(res2)
+
+    print("Files 'Calculation1_results.csv' and 'Calculation2_results.csv' created successfully.")
+def main():
+    rc1 = Calculation1(cl1)
+    rc2 = Calculation2(cl2)
+    write_outputs(rc1, rc2)
+main()
