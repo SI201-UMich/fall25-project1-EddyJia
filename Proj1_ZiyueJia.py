@@ -4,6 +4,7 @@
 #I am working alone, no collaborators. All works done by myself.
 #GenAI usage: Used GenAI to assist the coding of calculating correlation(help on math), used GenAI to help with certain minor difficulties(marked out), and used GenAI to assist writing the test cases.
 #IMPORTANT: The function decompostion diagram is in the repository. Forgot to include it in the checkpoint.
+#The video is in the repository as well.
 #The actual calculations and structure is different from the checkpoint. Refer to the code but not the checkpoint, thank you!
 
 import csv
